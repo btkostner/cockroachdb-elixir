@@ -1,0 +1,17 @@
+version: "3"
+
+services:
+  database:
+    image: docker.io/cockroachdb/cockroach:v22.1.11
+    command: start-single-node --insecure
+    ports:
+      - 26257:26257
+      - 8080:8080
+
+  elixir:
+    image: docker.io/elixir:1.14
+    command: elixir /app/main.exs
+    depends_on:
+      - database
+    volumes:
+      ./:/app
