@@ -1,7 +1,7 @@
 Mix.install([
   {:ecto_sql, "~> 3.9"},
   {:postgrex, ">= 0.0.0"}
-])
+], force: true)
 
 defmodule Repo do
   use Ecto.Repo,
@@ -49,7 +49,7 @@ end
 Application.put_env(:my_app, Repo, [
   after_connect: {Postgrex, :query!, ["SET SESSION application_name = \"test-app\";", []]},
   migration_lock: false,
-  url: "postgresql://root@127.0.0.1:26257/defaultdb"
+  url: "postgresql://root@database:26257/defaultdb"
 ])
 
 Repo.start_link()
